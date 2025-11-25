@@ -20,7 +20,7 @@ test('Forms Layout Page Automation : Inline form and  Using the Grid', async ({ 
 //   await page.locator(".input-full-width[placeholder='Email'][type='text']").fill('test1@exaple.com');
  
   await page.getByPlaceholder("Email").first().fill("test1@exaple.com");
-  //await page.getByPlaceholder("xpath=//iput[@type='password' and @placeholder='password']").fill("password123");
+  
 //   await page.waitForTimeout(2000);
   await page.getByPlaceholder("Jane Doe").fill("John Wick");
 //   await page.getByText("")
