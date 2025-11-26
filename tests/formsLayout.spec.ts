@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
-import { threadId } from 'worker_threads';
+import { clear } from 'console';
+import { threadId } from 'worker_threads'; 
  
  
  test.beforeEach(async ({ page }) => {
@@ -20,7 +21,6 @@ test('Forms Layout Page Automation : Inline form and  Using the Grid', async ({ 
 //   await page.locator(".input-full-width[placeholder='Email'][type='text']").fill('test1@exaple.com');
  
   await page.getByPlaceholder("Email").first().fill("test1@exaple.com");
-  
 //   await page.waitForTimeout(2000);
   await page.getByPlaceholder("Jane Doe").fill("John Wick");
 //   await page.getByText("")
@@ -37,12 +37,30 @@ test('Forms Layout Page Automation : Inline form and  Using the Grid', async ({ 
 await page.locator('xpath=//span[text()="Check me out"]/preceding-sibling::span[@class="custom-checkbox"]').check();
 await page.getByText('Submit').nth(1).click();
   /*
-   
   await page.locator('rect[transform="rotate(180 12 12)"]').click();
   //span[@class='custom-checkbox']/following-sibling::span[contains(text(),'Check me out')]
- */  
+   
 const headerText = await page.locator(':text-is("Using the Grid")').textContent();
   console.log(headerText); // "Using the Grid"
   await page.locator(":text-is('Using the Grid')").hover();
-  expect(page.locator(":text-is('Using the Grid')")).toBeVisible();
+  expect(page.locator(":text-is('Using the Grid')")).toBeVisible();  */
+  test('form layout', async ({ page }) => {
+  const blockForm = await page.locator('nb-card').filter({ hasText: "Block form" });
+const firstName = blockForm.locator('nb-card-body').getByRole("textbox", { name: "First Name" });
+await firstName.fill("Dale");
+const inputVal = await firstName.inputValue();
+console.log("Print data here");
+console.log(inputVal);
+console.log("Data is Printed");
+expect(inputVal).toEqual("Dale");
+const lastName = blockForm.locator('nb-card-body').getByRole("textbox", { name: "Last Name" });
+await lastName.fill("Steyn");
+const inputVal2 = await lastName.inputValue();
+console.log(inputVal2);
+expect(inputVal2).toEqual("Steyn");
+const submitButton = await blockForm.locator("nb-card-body").getByRole('button', { name: 'Submit' });
+const btnText = await submitButton.textContent();
+console.log(btnText);
+expect(btnText).toEqual("Submit");
+});
 });
